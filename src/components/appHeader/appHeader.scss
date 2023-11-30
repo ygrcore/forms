@@ -1,0 +1,35 @@
+@import '../../style/variables.scss';
+
+.app {
+    &__header {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__title {
+        font-weight: bold;
+        font-size: 30px;
+        line-height: 37px;
+        span {
+            color: $main-color;
+        }
+    }
+    &__menu {
+        ul {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 32px;
+            li {
+                margin: 0 8px;
+                will-change: filter;
+                transition: color 300ms, filter 300ms;
+                &:hover {
+                  color: $blue;
+                  filter: drop-shadow(0 0 0.1em rgba(100, 108, 255, 0.6666666667));
+                }
+            }
+
+        }
+    }
+}
