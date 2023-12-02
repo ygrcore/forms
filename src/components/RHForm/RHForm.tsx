@@ -5,8 +5,10 @@ import * as yup from 'yup';
 import { countryList } from '../../utils/counryList';
 
 import './RHForm.scss';
+import { useAppDispatch } from '../../store/hooks';
+import { addToForm } from '../../store/formSlice';
 
-type FormData = {
+export type FormData = {
   name: string;
   age: number;
   email: string;
@@ -14,7 +16,7 @@ type FormData = {
   confirmPassword: string;
   gender: string;
   acceptTerms?: boolean;
-  userImage: FileList | null;
+  userImage?: FileList | null;
   country: string;
 };
 
@@ -63,7 +65,8 @@ const validationSchema = yup.object<FormData>().shape({
 });
 
 const RHForm = () => {
-  // const dispatch = useDispatch(); // todo dispatch
+  const dispatch = useAppDispatch(); // todo dispatch
+  // const {addToForm} = useAppSelector();
   const {
     handleSubmit,
     register,
@@ -87,7 +90,8 @@ const RHForm = () => {
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
     // todo: сохранить в redux
-    // dispatch({ type: 'SAVE_RHFORM_DATA', payload: data });
+    // dispatch({ type: 'form', payload: data });
+    dispatch(addToForm(data));
   };
 
   return (
