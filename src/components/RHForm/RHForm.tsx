@@ -30,6 +30,7 @@ const RHForm = () => {
       userImage: null,
       country: '',
     },
+    mode: 'onChange',
   });
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
