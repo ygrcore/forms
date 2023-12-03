@@ -1,4 +1,4 @@
-import UctrlForm from "../components/UctrlForm/UctrlForm";
+import UctrlForm from '../components/UctrlForm/UctrlForm';
 
 const UncontrolledForm = () => {
   return (

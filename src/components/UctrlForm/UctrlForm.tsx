@@ -5,62 +5,8 @@ import { useAppDispatch } from '../../store/hooks';
 import { addToForm } from '../../store/formSlice';
 import { convert2base64 } from '../../utils/convert2base64';
 import { useNavigate } from 'react-router-dom';
-
-export type FormData = {
-  name: string;
-  age: number;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  gender: string;
-  acceptTerms?: boolean;
-  userImage?: FileList | null;
-  country: string;
-};
-
-const validationSchema = yup.object<FormData>().shape({
-  name: yup
-    .string()
-    .required('Name is required')
-    .matches(/[A-Z][a-z]*/, 'Should start with a capital letter'),
-  age: yup
-    .number()
-    .positive('Should be a positive number')
-    .integer('Should be an integer')
-    .required('Age is required'),
-  email: yup
-    .string()
-    .email('Invalid email address')
-    .required('Email is required'),
-  password: yup
-    .string()
-    .matches(/[a-z]/, 'At least one lowercase character')
-    .matches(/[A-Z]/, 'At least one uppercase character')
-    .matches(/\d/, 'At least one number')
-    .matches(/[!@#$%^&*(),.?":{}|<>]/, 'At least one special character')
-    .min(8, 'Password must be at least 8 characters')
-    .required('Password is required'),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password')], 'Passwords must match')
-    .required('Confirm Password is required'),
-  gender: yup.string().required('Gender is required'),
-  acceptTerms: yup
-    .bool()
-    .oneOf([true], 'Accept Terms & Conditions is required'),
-  userImage: yup
-    .mixed<FileList>()
-    .nullable()
-    .test('fileSize', 'File size is too large', (value) => {
-      if (!value || value.length === 0 || !value[0]) {
-        return true;
-      }
-      const file = value[0];
-      return file.size <= 1024000;
-    })
-    .required('Image is required'),
-  country: yup.string().required('Country is required'),
-});
+import { FormData } from '../../types/common';
+import { validationSchema } from '../../utils/validationSchema';
 
 const UctrlForm = () => {
   const navigate = useNavigate();
@@ -76,10 +22,9 @@ const UctrlForm = () => {
     userImage: null,
     country: '',
   });
-  const [formErrors, setFormErrors] = useState<Record<keyof FormData, string> | undefined>(
-    undefined
-  );
-
+  const [formErrors, setFormErrors] = useState<
+    Record<keyof FormData, string> | undefined
+  >(undefined);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -178,7 +123,7 @@ const UctrlForm = () => {
       />
       {formErrors && formErrors.email && <p>{formErrors.email}</p>}
 
-      <label htmlFor="password">password</label>
+      <label htmlFor="password">Password</label>
       <input
         id="password"
         name="password"
@@ -190,7 +135,7 @@ const UctrlForm = () => {
       />
       {formErrors && formErrors.password && <p>{formErrors.password}</p>}
 
-      <label htmlFor="confirmPassword">confirmPassword</label>
+      <label htmlFor="confirmPassword">Confirm Password</label>
       <input
         id="confirmPassword"
         name="confirmPassword"
@@ -200,10 +145,18 @@ const UctrlForm = () => {
         value={formData.confirmPassword}
         onChange={handleChange}
       />
-      {formErrors && formErrors.confirmPassword && <p>{formErrors.confirmPassword}</p>}
+      {formErrors && formErrors.confirmPassword && (
+        <p>{formErrors.confirmPassword}</p>
+      )}
 
       <label htmlFor="gender">Gender</label>
-      <select id='gender' name='gender' value={formData.gender} onChange={handleChange} autoComplete='on'>
+      <select
+        id="gender"
+        name="gender"
+        value={formData.gender}
+        onChange={handleChange}
+        autoComplete="on"
+      >
         <option value="">Select Gender</option>
         <option value="male">Male</option>
         <option value="female">Female</option>
@@ -233,7 +186,13 @@ const UctrlForm = () => {
       {formErrors && formErrors.userImage && <p>{formErrors.userImage}</p>}
 
       <label htmlFor="country">Country</label>
-      <select id="country" name="country" value={formData.gender} onChange={handleChange} autoComplete="on">
+      <select
+        id="country"
+        name="country"
+        value={formData.gender}
+        onChange={handleChange}
+        autoComplete="on"
+      >
         <option value="">Select Country</option>
         {countryList.map((country) => (
           <option key={country.code} value={country.code}>

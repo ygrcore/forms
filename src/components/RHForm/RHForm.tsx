@@ -1,68 +1,13 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import { countryList } from '../../utils/counryList';
 import { useAppDispatch } from '../../store/hooks';
 import { addToForm } from '../../store/formSlice';
 import { convert2base64 } from '../../utils/convert2base64';
 import { useNavigate } from 'react-router-dom';
+import { FormData } from '../../types/common';
+import { validationSchema } from '../../utils/validationSchema';
 import './RHForm.scss';
-
-export type FormData = {
-  name: string;
-  age: number;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  gender: string;
-  acceptTerms?: boolean;
-  userImage?: FileList | null;
-  country: string;
-};
-
-const validationSchema = yup.object<FormData>().shape({
-  name: yup
-    .string()
-    .required('Name is required')
-    .matches(/[A-Z][a-z]*/, 'Should start with a capital letter'),
-  age: yup
-    .number()
-    .positive('Should be a positive number')
-    .integer('Should be an integer')
-    .required('Age is required'),
-  email: yup
-    .string()
-    .email('Invalid email address')
-    .required('Email is required'),
-  password: yup
-    .string()
-    .matches(/[a-z]/, 'At least one lowercase character')
-    .matches(/[A-Z]/, 'At least one uppercase character')
-    .matches(/\d/, 'At least one number')
-    .matches(/[!@#$%^&*(),.?":{}|<>]/, 'At least one special character')
-    .min(8, 'Password must be at least 8 characters')
-    .required('Password is required'),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password')], 'Passwords must match')
-    .required('Confirm Password is required'),
-  gender: yup.string().required('Gender is required'),
-  acceptTerms: yup
-    .bool()
-    .oneOf([true], 'Accept Terms & Conditions is required'),
-  userImage: yup
-    .mixed<FileList>()
-    .nullable()
-    .test('fileSize', 'File size is too large', (value) => {
-      if (!value || value.length === 0 || !value[0]) {
-        return true;
-      }
-      const file = value[0];
-      return file.size <= 1024000;
-    })
-    .required('Image is required'),
-  country: yup.string().required('Country is required'),
-});
 
 const RHForm = () => {
   const navigate = useNavigate();
@@ -88,11 +33,10 @@ const RHForm = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    // console.log(data);
-    const converted = await convert2base64(data.userImage![0]) as string;
+    const converted = (await convert2base64(data.userImage![0])) as string;
 
     if (converted) {
-      const newData = {...data, userImage: converted}
+      const newData = { ...data, userImage: converted };
       dispatch(addToForm(newData));
       navigate('/');
     }
