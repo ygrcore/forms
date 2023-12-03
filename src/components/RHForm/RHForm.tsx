@@ -1,7 +1,6 @@
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-// import { useDispatch } from 'react-redux';
 import { countryList } from '../../utils/counryList';
 
 import './RHForm.scss';
@@ -65,8 +64,7 @@ const validationSchema = yup.object<FormData>().shape({
 });
 
 const RHForm = () => {
-  const dispatch = useAppDispatch(); // todo dispatch
-  // const {addToForm} = useAppSelector();
+  const dispatch = useAppDispatch();
   const {
     handleSubmit,
     register,
@@ -89,8 +87,6 @@ const RHForm = () => {
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
-    // todo: сохранить в redux
-    // dispatch({ type: 'form', payload: data });
     dispatch(addToForm(data));
   };
 
