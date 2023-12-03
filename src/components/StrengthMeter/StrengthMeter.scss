@@ -1,0 +1,15 @@
+@import '../../style/variables.scss';
+
+.progress {
+  height: 0.4em;
+  border-radius: 4px;
+  background-color: $grey;
+  p {
+    text-align: right;
+  }
+}
+
+.progress-bar {
+  height: 0.4em;
+  border-radius: 4px;
+}
