@@ -52,7 +52,7 @@ const RHForm = () => {
         placeholder="Enter your name"
         autoComplete="on"
       />
-      {errors.name && <p>{errors.name.message}</p>}
+      <p>{errors.name && errors.name.message}</p>
 
       <label htmlFor="age">Age</label>
       <input
@@ -62,7 +62,7 @@ const RHForm = () => {
         placeholder="Enter your age"
         autoComplete="on"
       />
-      {errors.age && <p>{errors.age.message}</p>}
+      <p>{errors.age && errors.age.message}</p>
 
       <label htmlFor="email">Email</label>
       <input
@@ -72,7 +72,7 @@ const RHForm = () => {
         placeholder="example@email.com"
         autoComplete="on"
       />
-      {errors.email && <p>{errors.email.message}</p>}
+      <p>{errors.email && errors.email.message}</p>
 
       <label htmlFor="password">Password</label>
       <input
@@ -81,7 +81,7 @@ const RHForm = () => {
         type="password"
         autoComplete="on"
       />
-      {errors.password && <p>{errors.password.message}</p>}
+      <p>{errors.password && errors.password.message}</p>
 
       <label htmlFor="confirmPassword">Confirm Password</label>
       <input
@@ -90,7 +90,7 @@ const RHForm = () => {
         type="password"
         autoComplete="on"
       />
-      {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+      <p>{errors.confirmPassword && errors.confirmPassword.message}</p>
 
       <label htmlFor="gender">Gender</label>
       <select {...register('gender')} id="gender">
@@ -98,12 +98,12 @@ const RHForm = () => {
         <option value="male">Male</option>
         <option value="female">Female</option>
       </select>
-      {errors.gender && <p>{errors.gender.message}</p>}
+      <p>{errors.gender && errors.gender.message}</p>
 
       <div className="checkbox__input">
         <label htmlFor="acceptTerms">Accept Terms & Conditions</label>
         <input {...register('acceptTerms')} id="acceptTerms" type="checkbox" />
-        {errors.acceptTerms && <p>{errors.acceptTerms.message}</p>}
+        <p>{errors.acceptTerms && errors.acceptTerms.message}</p>
       </div>
 
       <label htmlFor="image">Upload Image</label>
@@ -113,7 +113,7 @@ const RHForm = () => {
         id="image"
         accept=".jpg, .jpeg, .png"
       />
-      {errors.userImage && <p>{errors.userImage.message}</p>}
+      <p>{errors.userImage && errors.userImage.message}</p>
 
       <label htmlFor="country">Country</label>
       <Controller
@@ -130,7 +130,7 @@ const RHForm = () => {
           </select>
         )}
       />
-      {errors.country && <p>{errors.country.message}</p>}
+      <p>{errors.country && errors.country.message}</p>
 
       <button type="submit">Submit</button>
     </form>

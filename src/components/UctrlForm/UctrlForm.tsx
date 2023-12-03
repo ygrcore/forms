@@ -97,7 +97,7 @@ const UctrlForm = () => {
         value={formData.name}
         onChange={handleChange}
       />
-      {formErrors && formErrors.name && <p>{formErrors.name}</p>}
+      <p>{formErrors && formErrors.name && formErrors.name}</p>
 
       <label htmlFor="age">Age</label>
       <input
@@ -109,7 +109,7 @@ const UctrlForm = () => {
         value={formData.age}
         onChange={handleChange}
       />
-      {formErrors && formErrors.age && <p>{formErrors.age}</p>}
+      <p>{formErrors && formErrors.age && formErrors.age}</p>
 
       <label htmlFor="email">Email</label>
       <input
@@ -121,7 +121,7 @@ const UctrlForm = () => {
         value={formData.email}
         onChange={handleChange}
       />
-      {formErrors && formErrors.email && <p>{formErrors.email}</p>}
+      <p>{formErrors && formErrors.email && formErrors.email}</p>
 
       <label htmlFor="password">Password</label>
       <input
@@ -133,7 +133,7 @@ const UctrlForm = () => {
         value={formData.password}
         onChange={handleChange}
       />
-      {formErrors && formErrors.password && <p>{formErrors.password}</p>}
+      <p>{formErrors && formErrors.password && formErrors.password}</p>
 
       <label htmlFor="confirmPassword">Confirm Password</label>
       <input
@@ -145,9 +145,9 @@ const UctrlForm = () => {
         value={formData.confirmPassword}
         onChange={handleChange}
       />
-      {formErrors && formErrors.confirmPassword && (
-        <p>{formErrors.confirmPassword}</p>
-      )}
+      <p>
+        {formErrors && formErrors.confirmPassword && formErrors.confirmPassword}
+      </p>
 
       <label htmlFor="gender">Gender</label>
       <select
@@ -161,7 +161,7 @@ const UctrlForm = () => {
         <option value="male">Male</option>
         <option value="female">Female</option>
       </select>
-      {formErrors && formErrors.gender && <p>{formErrors.gender}</p>}
+      <p>{formErrors && formErrors.gender && formErrors.gender}</p>
 
       <label htmlFor="acceptTerms">Accept Terms & Conditions</label>
       <input
@@ -173,7 +173,7 @@ const UctrlForm = () => {
         value="false"
         onChange={handleChange}
       />
-      {formErrors && formErrors.acceptTerms && <p>{formErrors.acceptTerms}</p>}
+      <p>{formErrors && formErrors.acceptTerms && formErrors.acceptTerms}</p>
 
       <label htmlFor="userImage">Upload Image</label>
       <input
@@ -183,7 +183,7 @@ const UctrlForm = () => {
         accept=".jpg, .jpeg, .png"
         onChange={handleFileChange}
       />
-      {formErrors && formErrors.userImage && <p>{formErrors.userImage}</p>}
+      <p>{formErrors && formErrors.userImage && formErrors.userImage}</p>
 
       <label htmlFor="country">Country</label>
       <select
@@ -200,7 +200,7 @@ const UctrlForm = () => {
           </option>
         ))}
       </select>
-      {formErrors && formErrors.country && <p>{formErrors.country}</p>}
+      <p>{formErrors && formErrors.country && formErrors.country}</p>
 
       <button type="submit">Submit</button>
     </form>

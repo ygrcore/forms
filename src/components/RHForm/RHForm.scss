@@ -12,7 +12,7 @@
     border-radius: 4px;
     border: 1px solid #565ddc;
     padding: 10px 15px;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.1em;
     font-size: 14px;
     &#acceptTerms {
       width: 37.33px;
@@ -32,6 +32,7 @@
     height: 37.33px;
   }
   p {
+    height: 1em;
     text-align: left;
     color: $main-color;
   }

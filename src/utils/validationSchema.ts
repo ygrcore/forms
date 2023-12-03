@@ -9,7 +9,8 @@ export const validationSchema = yup.object<FormData>().shape({
     .number()
     .positive('Should be a positive number')
     .integer('Should be an integer')
-    .required('Age is required'),
+    .required('Age is required')
+    .typeError('Should be a number'),
   email: yup
     .string()
     .email('Invalid email address')
