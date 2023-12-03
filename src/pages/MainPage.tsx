@@ -1,5 +1,6 @@
 import { useAppSelector } from '../store/hooks';
 import { ModifiedFormData } from '../types/common';
+import Card from '../components/Card/Card';
 
 const MainPage = () => {
   const { form } = useAppSelector((state) => state.form);
@@ -9,16 +10,17 @@ const MainPage = () => {
       <h1>Main Page</h1>
       <ul>
         {form.map((item: ModifiedFormData, idx) => (
-          <li key={idx}>
-            <img
-              src={item.userImage}
-              style={{ objectFit: 'cover' }}
-              width="200px"
-              height="200px"
-              alt={item.name}
-            />
-            {item.name}, {item.age}, {item.country}, {item.email}, {item.gender}
-          </li>
+          <Card
+            key={idx}
+            name={item.name}
+            age={item.age}
+            country={item.country}
+            email={item.email}
+            gender={item.gender}
+            password={item.password}
+            userImage={item.userImage}
+            isLatest={idx === form.length - 1}
+          />
         ))}
       </ul>
     </>

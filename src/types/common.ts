@@ -15,7 +15,7 @@ export interface ModifiedFormData {
   age: number;
   email: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
   gender: string;
   acceptTerms?: boolean;
   userImage?: string;
