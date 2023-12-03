@@ -7,6 +7,7 @@ import { convert2base64 } from '../../utils/convert2base64';
 import { useNavigate } from 'react-router-dom';
 import { FormData } from '../../types/common';
 import { validationSchema } from '../../utils/validationSchema';
+import StrengthMeter from '../StrengthMeter/StrengthMeter';
 
 const UctrlForm = () => {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const UctrlForm = () => {
   const [formErrors, setFormErrors] = useState<
     Record<keyof FormData, string> | undefined
   >(undefined);
+  const [password, setPassword] = useState('');
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -37,6 +39,10 @@ const UctrlForm = () => {
       ...prevData,
       [name]: type === 'checkbox' ? checked : value,
     }));
+
+    if (name === 'password') {
+      setPassword(e.target.value);
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,6 +139,7 @@ const UctrlForm = () => {
         value={formData.password}
         onChange={handleChange}
       />
+      <StrengthMeter password={password} />
       <p>{formErrors && formErrors.password && formErrors.password}</p>
 
       <label htmlFor="confirmPassword">Confirm Password</label>

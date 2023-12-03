@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { countryList } from '../../utils/counryList';
@@ -7,6 +8,7 @@ import { convert2base64 } from '../../utils/convert2base64';
 import { useNavigate } from 'react-router-dom';
 import { FormData } from '../../types/common';
 import { validationSchema } from '../../utils/validationSchema';
+import StrengthMeter from '../StrengthMeter/StrengthMeter';
 import './RHForm.scss';
 
 const RHForm = () => {
@@ -33,6 +35,7 @@ const RHForm = () => {
     mode: 'onChange',
   });
 
+  const [password, setPassword] = useState('');
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const converted = (await convert2base64(data.userImage![0])) as string;
 
@@ -41,6 +44,10 @@ const RHForm = () => {
       dispatch(addToForm(newData));
       navigate('/');
     }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
   };
 
   return (
@@ -77,10 +84,13 @@ const RHForm = () => {
       <label htmlFor="password">Password</label>
       <input
         {...register('password')}
+        name="password"
+        onChange={handleChange}
         id="password"
         type="password"
         autoComplete="on"
       />
+      <StrengthMeter password={password} />
       <p>{errors.password && errors.password.message}</p>
 
       <label htmlFor="confirmPassword">Confirm Password</label>
