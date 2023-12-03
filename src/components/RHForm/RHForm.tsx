@@ -2,10 +2,11 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { countryList } from '../../utils/counryList';
-
-import './RHForm.scss';
 import { useAppDispatch } from '../../store/hooks';
 import { addToForm } from '../../store/formSlice';
+import { convert2base64 } from '../../utils/convert2base64';
+import { useNavigate } from 'react-router-dom';
+import './RHForm.scss';
 
 export type FormData = {
   name: string;
@@ -64,6 +65,7 @@ const validationSchema = yup.object<FormData>().shape({
 });
 
 const RHForm = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
     handleSubmit,
@@ -85,9 +87,15 @@ const RHForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
-    dispatch(addToForm(data));
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    // console.log(data);
+    const converted = await convert2base64(data.userImage![0]) as string;
+
+    if (converted) {
+      const newData = {...data, userImage: converted}
+      dispatch(addToForm(newData));
+      navigate('/');
+    }
   };
 
   return (
